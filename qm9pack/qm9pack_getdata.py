@@ -10,26 +10,20 @@ data_folder = resource_filename('qm9pack', 'data')
 
 def get_data(dataset):
 
-    start_time = datetime.now()
-    formatted_datetime = start_time.strftime("%Y-%m-%d %H:%M:%S")
+    #start_time = datetime.now()
+    #formatted_datetime = start_time.strftime("%Y-%m-%d %H:%M:%S")
 
-    print('')
-    print(' Current Time:', formatted_datetime)
+    #print('')
+    #print(' Current Time:', formatted_datetime)
 
     df1 = pd.read_csv(os.path.join(data_folder, 'qm9_part1.csv'))
-    print(df1.describe() )
 
     df2 = pd.read_csv(os.path.join(data_folder, 'qm9_part2.csv'))
-    print(df2.describe() )
 
     df3 = pd.read_csv(os.path.join(data_folder, 'qm9_part3.csv'))
-    print(df3.describe() )
 
     # Concatenate the dataframes
-    df = pd.concat([df1, df2, df3], ignore_index=True)
-    print('====')
-    print(df.describe())
-    print('====')
+    df = pd.concat([df1, df2, df3], ignore_index=False)
 
     #df=pd.read_csv(os.path.join(data_folder, 'qm9.csv'))
 

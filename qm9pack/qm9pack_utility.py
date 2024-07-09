@@ -19,6 +19,7 @@ def helper(key):
         'LUMO_au': 'Lowest Unoccupied Molecular Orbital energy in atomic units, hartree.',
         'HOMO_LUMO_gap_au': 'Energy gap between HOMO and LUMO in atomic units, hartree.',
         'R2_bohr2': 'Spread of the electron density calculated as the expectation value of the operator, R^2, in bohr^2',
+        'ZOVE_au': 'Zero-point (harmonic) vibrational energy in atomic units, hartree',
         'InternalEnergy_0K_au': 'Internal energy of the molecule at 0 kelvin.',
         'InternalEnergy_298K_au': 'Internal energy of the molecule at 298.15 kelvin.',
         'Enthalphy_298K_au': 'Enthalpy of the molecule at 298.15 kelvin.',
@@ -40,11 +41,8 @@ def makexyz(index,df,filename):
     mol=df.iloc[index,:]
 
     ele=mol['Elements']
-    print(ele)
-    print('---')
 
     coord=mol['XYZ_Ang']
-    print(coord)
 
     ele=ele.strip(']').strip('[').strip(',').split(',')
     atoms=[]
