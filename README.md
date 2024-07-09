@@ -37,10 +37,17 @@ python3 -m pip install -e .
 
 # Tutorial
 
-You can download the latest version of the tutorials from here: 
+Click the image below for the latest version of the tutorial
+
+![](https://github.com/raghurama123/qm9pack/blob/main/Tutorial_QM9PACK.pdf)
+<a href="https://github.com/raghurama123/qm9pack/blob/main/Tutorial_QM9PACK.pdf">
+<img src="Tutorial_QM9PACK.png"  height="400">
+</a>
+
 
  # Support e-mail
- `ramakrishnan@tifrh.res.in`, `raghu.rama.chem@gmail.com`
+ `ramakrishnan@tifrh.res.in` 
+ `raghu.rama.chem@gmail.com`
  
 # References
 
