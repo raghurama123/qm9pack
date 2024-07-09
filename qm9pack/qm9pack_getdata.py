@@ -27,22 +27,22 @@ def get_data(dataset):
 
     #df=pd.read_csv(os.path.join(data_folder, 'qm9.csv'))
 
-    parser = argparse.ArgumentParser(description='Options for qm9')
+    #parser = argparse.ArgumentParser(description='Options for qm9')
 
-    parser.add_argument('--summary', action='store_true', help='Print a summary of the dataset')
+    #parser.add_argument('--summary', action='store_true', help='Print a summary of the dataset')
  
-    args = parser.parse_args()
+    #args = parser.parse_args()
  
-    if args.summary:
-        print('Data available:')
-        print('---------------')
-        columns=df.columns
-        for icol, col in enumerate(columns):
-            print(icol,col)
-        print('Summary of numerical data:')
-        print('--------------------------')
-        print(df.describe())
-        print('------------------')
+    #if args.summary:
+    #    print('Data available:')
+    #    print('---------------')
+    #    columns=df.columns
+    #    for icol, col in enumerate(columns):
+    #        print(icol,col)
+    #    print('Summary of numerical data:')
+    #    print('--------------------------')
+    #    print(df.describe())
+    #    print('------------------')
 
     return df
 
