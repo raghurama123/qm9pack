@@ -19,6 +19,12 @@ pip3 install numpy pandas scipy matplotlib
 - If you want to convert a SMILES string to an SVG image, also install:
   - `rdkit`
 
+## Install directly from from PyPI 
+
+```
+   pip3 install qm9pack
+```
+
 ## Download and Install the Package
 
 Clone the repository and install the package:
@@ -29,15 +35,9 @@ cd qm9pack
 python3 -m pip install -e .
 ```
 
-## Install directly from from PyPI 
-
-```
-   pip3 install qm9pack
-```
-
 # Tutorial
 
-Click the image below for the latest version of the tutorial
+Click the image below for the latest version of the tutorial.
 
 ![](https://github.com/raghurama123/qm9pack/blob/main/Tutorial_QM9PACK.pdf)
 <a href="https://github.com/raghurama123/qm9pack/blob/main/Tutorial_QM9PACK.pdf">
