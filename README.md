@@ -52,8 +52,8 @@ Click the image below for the latest version of the tutorial.
 # References
 
 [_Quantum chemistry structures and properties of 134 kilo molecules_](https://doi.org/10.1038/sdata.2014.22)    
-Raghunathan Ramakrishnan, Pavlo O. Dral, Matthias Rupp & O. Anatole von Lilienfeld 
-Scientific Data volume 1, Article number: 140022 (2014)
+Raghunathan Ramakrishnan, Pavlo O. Dral, Matthias Rupp, O. Anatole von Lilienfeld    
+Scientific Data volume 1, Article number: 140022 (2014)   
 
 ```
 @article{ramakrishnan2014quantum,
