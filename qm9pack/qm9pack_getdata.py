@@ -23,7 +23,7 @@ def get_data(dataset):
     df3 = pd.read_csv(os.path.join(data_folder, 'qm9_part3.csv'))
 
     # Concatenate the dataframes
-    df = pd.concat([df1, df2, df3], ignore_index=False)
+    df = pd.concat([df1, df2, df3], ignore_index=True)
 
     #df=pd.read_csv(os.path.join(data_folder, 'qm9.csv'))
 
