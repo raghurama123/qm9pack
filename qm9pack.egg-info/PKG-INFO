@@ -1,4 +1,4 @@
-Metadata-Version: 2.1
+Metadata-Version: 1.0
 Name: qm9pack
 Version: 1.0.1
 Summary: A python module for data-mining the qm9 database
@@ -6,6 +6,5 @@ Home-page: https://github.com/raghurama123/qm9pack
 Author: Raghunathan Ramakrishnan
 Author-email: raghu.rama.chem@gmail.com
 License: MIT License
-License-File: LICENSE
-Requires-Dist: pandas
-Requires-Dist: numpy
+Description: UNKNOWN
+Platform: UNKNOWN
