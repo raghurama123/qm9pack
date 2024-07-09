@@ -2,7 +2,7 @@
 
  A Python package for data-mining the QM9 dataset
 
-# Install `qm9pack`
+# Installation details
 
 ## Install Dependencies
 
@@ -25,7 +25,7 @@ pip3 install numpy pandas scipy matplotlib
    pip3 install qm9pack
 ```
 
-## Download and Install the Package
+## Alternatively, download and Install the Package
 
 Clone the repository and install the package:
 
@@ -54,3 +54,17 @@ Click the image below for the latest version of the tutorial.
 [_Quantum chemistry structures and properties of 134 kilo molecules_](https://doi.org/10.1038/sdata.2014.22)    
 Raghunathan Ramakrishnan, Pavlo O. Dral, Matthias Rupp & O. Anatole von Lilienfeld 
 Scientific Data volume 1, Article number: 140022 (2014)
+
+```
+@article{ramakrishnan2014quantum,
+  title={Quantum chemistry structures and properties of 134 kilo molecules},
+  author={Ramakrishnan, Raghunathan and Dral, Pavlo O and Rupp, Matthias and Von Lilienfeld, O Anatole},
+  journal={Scientific data},
+  volume={1},
+  number={1},
+  pages={1--7},
+  year={2014},
+  publisher={Nature Publishing Group},
+  url={https://doi.org/10.1038/sdata.2014.22}
+}
+```
