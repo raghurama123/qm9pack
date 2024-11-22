@@ -45,11 +45,27 @@ Click the image below for the latest version of the tutorial.
 </a>
 
 
- # Support e-mail
+# Support e-mail
  `ramakrishnan@tifrh.res.in` 
  `raghu.rama.chem@gmail.com`
- 
-# References
+
+# How to cite?
+If you find this module useful and have  used it in your work, please cite it as   
+
+_QM9PACK: A Python package for data-mining the QM9 dataset_     
+Raghunathan Ramakrishnan      
+https://github.com/raghurama123/qm9pack
+
+```
+@misc{qm9pack,
+  title   = {QM9PACK: A Python package for data-mining the QM9 dataset},
+  author  = {Ramakrishnan, Raghunathan},
+  year    = {2024},
+  url = {https://github.com/raghurama123/qm9pack}
+}
+```
+
+Additionally, please also cite the QM9 study 
 
 [_Quantum chemistry structures and properties of 134 kilo molecules_](https://doi.org/10.1038/sdata.2014.22)    
 Raghunathan Ramakrishnan, Pavlo O. Dral, Matthias Rupp, O. Anatole von Lilienfeld    
