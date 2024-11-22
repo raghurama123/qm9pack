@@ -37,13 +37,14 @@ python3 -m pip install -e .
 
 # Tutorial
 
-Click the image below for the latest version of the tutorial.
+Click the image below for a PDF the latest version of the tutorial.
 
 ![](https://github.com/raghurama123/qm9pack/blob/main/Tutorial_QM9PACK.pdf)
 <a href="https://github.com/raghurama123/qm9pack/blob/main/Tutorial_QM9PACK.pdf">
 <img src="Tutorial_QM9PACK.png"  height="400">
 </a>
 
+All the Python codes used in the tutorial are in the [tutorials folder](https://github.com/raghurama123/qm9pack/tree/main/tutorials). The codes are named according to the section/subsection in the tutorial. 
 
 # Support e-mail
  `ramakrishnan@tifrh.res.in` 
