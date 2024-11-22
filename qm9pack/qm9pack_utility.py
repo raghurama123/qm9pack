@@ -59,12 +59,12 @@ def makexyz(index,df,filename):
 
     xyzfile=open(filename,'w')
 
-    print(len(atoms))
+#   print(len(atoms))
     xyzfile.write(str(len(atoms))+'\n')
-    print(filename)
+#   print(filename)
     xyzfile.write(filename+'\n')
     for i,atom in enumerate(atoms):
-        print('{:s}{:15.8f}{:15.8f}{:15.8f}'.format(atom,xyz[i][0],xyz[i][1],xyz[i][2]))
+#       print('{:s}{:15.8f}{:15.8f}{:15.8f}'.format(atom,xyz[i][0],xyz[i][1],xyz[i][2]))
         xyzfile.write('{:s}{:15.8f}{:15.8f}{:15.8f}\n'.format(atom,xyz[i][0],xyz[i][1],xyz[i][2]))
 
     xyzfile.close()

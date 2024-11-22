@@ -2,9 +2,9 @@ from setuptools import setup, find_packages
 
 setup(
     name='qm9pack',
-    version='1.0.1',
+    version='1.0.2',
     packages=find_packages(),
-    package_data={'pymoldis': ['data/*']},
+    package_data={'qm9pack': ['data/*']},
     author='Raghunathan Ramakrishnan',
     author_email='raghu.rama.chem@gmail.com',
     include_package_data=True,
@@ -12,5 +12,5 @@ setup(
     license='MIT License',
     description='A python module for data-mining the qm9 database',
     long_desc_type="text/markdown",
-    install_requires=[ 'pandas', 'numpy' ]
+    install_requires=[ 'pandas', 'numpy' ],
 )
