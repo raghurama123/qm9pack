@@ -12,10 +12,16 @@ qm9pack.egg-info/requires.txt
 qm9pack.egg-info/top_level.txt
 qm9pack/__pycache__/__init__.cpython-311.pyc
 qm9pack/__pycache__/__init__.cpython-37.pyc
+qm9pack/__pycache__/__init__.cpython-38.pyc
+qm9pack/__pycache__/__init__.cpython-39.pyc
 qm9pack/__pycache__/qm9pack_getdata.cpython-311.pyc
 qm9pack/__pycache__/qm9pack_getdata.cpython-37.pyc
+qm9pack/__pycache__/qm9pack_getdata.cpython-38.pyc
+qm9pack/__pycache__/qm9pack_getdata.cpython-39.pyc
 qm9pack/__pycache__/qm9pack_utility.cpython-311.pyc
 qm9pack/__pycache__/qm9pack_utility.cpython-37.pyc
+qm9pack/__pycache__/qm9pack_utility.cpython-38.pyc
 qm9pack/data/qm9_part1.csv
 qm9pack/data/qm9_part2.csv
 qm9pack/data/qm9_part3.csv
+qm9pack/data/qm9_polarizability.csv

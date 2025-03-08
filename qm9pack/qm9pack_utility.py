@@ -24,7 +24,13 @@ def helper(key):
         'InternalEnergy_298K_au': 'Internal energy of the molecule at 298.15 kelvin.',
         'Enthalphy_298K_au': 'Enthalpy of the molecule at 298.15 kelvin.',
         'GibbsFreeEnergy_298K_au': 'Gibbs free energy of the molecule at 298.15 kelvin.',
-        'Heatcapacity_Cv_cal_mol_K': 'Heat capacity at constant volume in cal/(mol K).'
+        'Heatcapacity_Cv_cal_mol_K': 'Heat capacity at constant volume in cal/(mol K).',
+        'A_xx':'xx component of dipole electric field polarizability in bohr^3',
+        'A_xy':'xy component of dipole electric field polarizability in bohr^3',
+        'A_yy':'yy component of dipole electric field polarizability in bohr^3',
+        'A_xz':'xz component of dipole electric field polarizability in bohr^3',
+        'A_yz':'yz component of dipole electric field polarizability in bohr^3',
+        'A_zz':'zz component of dipole electric field polarizability in bohr^3'
     }
 
 

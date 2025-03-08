@@ -25,6 +25,10 @@ def get_data(dataset):
     # Concatenate the dataframes
     df = pd.concat([df1, df2, df3], ignore_index=True)
 
+    # add polarizability
+    polarizability_df = pd.read_csv(os.path.join(data_folder, 'qm9_polarizability.csv'))
+    df = pd.merge(df, polarizability_df, on='XYZ_file', how='inner')
+
     #df=pd.read_csv(os.path.join(data_folder, 'qm9.csv'))
 
     #parser = argparse.ArgumentParser(description='Options for qm9')
