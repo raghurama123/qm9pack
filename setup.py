@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='qm9pack',
-    version='1.0.2',
+    version='1.0.3',
     packages=find_packages(),
     package_data={'qm9pack': ['data/*']},
     author='Raghunathan Ramakrishnan',
