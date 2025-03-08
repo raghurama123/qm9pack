@@ -85,3 +85,6 @@ Scientific Data volume 1, Article number: 140022 (2014)
   url={https://doi.org/10.1038/sdata.2014.22}
 }
 ```
+
+# Revision history
+- 8 March 2025, xx, xy, yy, xz, yz, and zz components of dipole-polarizability included. Available from version [1.0.3](https://www.piwheels.org/project/qm9pack/). 
