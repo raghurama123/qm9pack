@@ -1,2 +1,20 @@
-- name: Open Journals PDF Generator
-  uses: openjournals/openjournals-draft-action@v.1.0
+name: Generate JOSS PDF
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install LaTeX
+        run: sudo apt-get update && sudo apt-get install -y texlive-full
+
+      - name: Generate JOSS PDF
+        uses: openjournals/openjournals-draft-action@v1.0
