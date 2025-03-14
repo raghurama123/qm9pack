@@ -22,10 +22,9 @@ bibliography: paper.bib
 # Summary
 
 QM9PACK is an open-source package designed to facilitate data mining of the 
-QM9 dataset, one of the most widely used datasets in quantum chemistry, 
-containing approximately 130,000 small organic molecules. The package provides 
-streamlined tools for data retrieval, preprocessing, and statistical analysis, 
-enabling researchers to rapidly extract and analyze molecular properties. By offering 
+QM9, one of the most widely used quantum chemistry datasets, containing approximately 130,000 small organic molecules. 
+The package provides streamlined tools for data retrieval, preprocessing, and statistical analysis, 
+enabling researchers to extract and analyze molecular properties rapidly. By offering 
 the QM9 data in CSV format, QM9PACK simplifies integration with other Python modules 
 such as Pandas, allowing for efficient querying, filtering, and data exploration. 
 Additionally, QM9PACK presents a platform for augmenting the database with new data, 
@@ -41,20 +40,20 @@ extensively used, researchers often face challenges in efficiently accessing
 and processing the dataset in its raw, unstructured form [@qm9dataset]. QM9PACK addresses this gap by providing user-friendly 
 Python interfaces, efficient data handling routines, and example codes for large-scale 
 data exploration. The package also serves as a platform for discussing unit 
-conventions, ensuring consistency in molecular property reporting. This is more often the case in 
-the calculation of thermochemistry energetics [@ochterski2000thermochemistry]. 
+conventions, ensuring consistency in molecular property reporting. 
+This is more often the case when calculating thermochemistry energetics [@ochterski2000thermochemistry]. 
+[@sangala2024graph] is an example study using the QM9PACK to extract
+a subset of QM9 molecules for training a graph neural network model.
 Additionally, QM9PACK facilitates the augmentation of QM9 data with new molecular properties, 
-allowing researchers to expand and refine the dataset. By offering data in CSV format, 
-it enables seamless integration with Python-based workflows, making it easier for users 
+allowing researchers to expand and refine the dataset. 
+By offering data in CSV format, it enables seamless integration with Python-based workflows, making it easier for users 
 to import, manipulate, and analyze quantum chemistry data within Python environments.
 
 From a pedagogical perspective, QM9PACK provides an accessible entry point for students 
 and researchers with a chemistry background to engage with quantum chemistry big data. 
-By leveraging tools such as 
-Pandas[@reback2020pandas, @mckinney2010],  NumPy[@harris2020array], Matplotlib[@Hunter2007], and Scipy[@2020SciPy] 
-the package introduces data analytics techniques that help users extract insights from molecular
-property datasets efficiently. This is particularly beneficial for students who may not have prior 
-experience in programming or large-scale data processing but wish to learn modern data-driven 
+By leveraging tools such as Pandas[@reback2020pandas, @mckinney2010],  NumPy[@harris2020array], Matplotlib[@Hunter2007], and Scipy[@2020SciPy] the package introduces data analytics techniques that help users extract insights from molecular property datasets efficiently. 
+This is particularly beneficial for students who may not have prior 
+experience in programming or large-scale data processing, but wish to learn modern data-driven 
 approaches. QM9PACK bridges the gap between traditional quantum chemistry calculations and 
 computational data science, fostering a deeper understanding of molecular trends and statistical 
 analysis methods relevant to quantum chemistry.
@@ -74,14 +73,13 @@ The package provides the QM9 dataset in an accessible CSV format, facilitating r
 Users can efficiently query molecular properties based on multiple criteria, filter molecules by stoichiometry, 
 and perform batch processing through a command-line interface (CLI).
 
-With QM9PACK, users can import the QM9 dataset and quick a quick overview using:
-
+With QM9PACK, users can import the QM9 dataset and quickly obtain a quick overview using:
 ```
 import qm9pack
 df = qm9pack.get_data('qm9')
 print(df.describe())
 ```
-Python codes for advanced queries are provided in separate files. The explanation of the queries are
+Python codes for advanced queries are provided in separate files. The explanations of the queries are
 provided in a tutorial-styled manual.
 
 This retrieves the dataset as a Pandas DataFrame, allowing for seamless exploration of molecular properties, 
@@ -89,12 +87,19 @@ including Cartesian coordinates, vibrational frequencies, and thermochemical ene
 utilities for retrieving constitutional isomers, extracting molecular substructures, and performing multi-property queries, 
 such as filtering molecules based on dipole moments and HOMO-LUMO gaps.
 
-Additionally, QM9PACK provides functionality to calculate derived molecular properties, such as isotropic 
-polarizability from tensor components, ensuring consistency with QM9 conventions. Structured workflows 
+Due to the efficiency of the Pandas library, augmenting the QM9 dataset with additional molecular properties is straightforward. Users can seamlessly merge new properties into the existing dataset using Pandas' built-in functions. For example, given a CSV file containing new molecular properties, users can integrate it with the original QM9 dataset as follows:
+```
+# df is the dataframe with original QM9 properties
+newprop_df = pd.read_csv(os.path.join(data_folder, 'qm9_newprop.csv'))
+df = pd.merge(df, newprop_df, on='XYZ_file', how='inner')
+```
+This framework can extend the QM9 dataset by incorporating additional molecular properties not included in the original dataset, such as NMR shielding[@gupta2021revving, @qm9nmr]. 
+
+Structured workflows 
 within the package guide users through data retrieval, transformation, and analysis, enabling reproducible 
 research. Through an intuitive API, comprehensive tutorials, and integration with Jupyter notebooks, 
 QM9PACK simplifies quantum chemistry data analysis, making it accessible to both 
-experienced researchers and students.
+experienced researchers and students. 
 
 
 # Acknowledgements
