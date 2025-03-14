@@ -39,7 +39,7 @@ python3 -m pip install -e .
 
 Click the image below for a PDF the latest version of the tutorial.
 
-![](https://github.com/raghurama123/qm9pack/blob/main/tutorials/Tutorial_QM9PACK.pdf)
+![](https://github.com/raghurama123/qm9pack/blob/main/tutorials/Tutorial_QM9PACK.png)
 <a href="https://github.com/raghurama123/qm9pack/blob/main/tutorials/Tutorial_QM9PACK.pdf">
 <img src="Tutorial_QM9PACK.png"  height="400">
 </a>
