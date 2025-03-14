@@ -15,11 +15,11 @@ jobs:
         with:
           journal: joss
           # This should be the path to the paper within your repo.
-          paper-path: paper.md
+          paper-path: doc/paper.md
       - name: Debug file paths
         run: ls -R
       - name: Find and Upload Paper PDF
         uses: actions/upload-artifact@v4
         with:
           name: paper
-          path: "./paper.pdf"  # Ensures the correct path
+          path: "doc/paper.pdf"  # Ensures the correct path
