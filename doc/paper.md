@@ -1,5 +1,5 @@
 ---
-title: 'Gala: A Python package for galactic dynamics'
+title: 'QM9PACK: A Python package for data-mining the QM9 dataset'
 tags:
   - Python
   - Chemical Space
@@ -93,7 +93,7 @@ Due to the efficiency of the Pandas library, augmenting the QM9 dataset with add
 newprop_df = pd.read_csv(os.path.join(data_folder, 'qm9_newprop.csv'))
 df = pd.merge(df, newprop_df, on='XYZ_file', how='inner')
 ```
-This framework can extend the QM9 dataset by incorporating additional molecular properties not included in the original dataset, such as NMR shielding[@gupta2021revving, @qm9nmr]. 
+This framework can extend the QM9 dataset by incorporating additional molecular properties not included in the original dataset, such as NMR shielding[@gupta2021revving]. 
 
 Structured workflows 
 within the package guide users through data retrieval, transformation, and analysis, enabling reproducible 
