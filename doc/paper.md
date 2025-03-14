@@ -14,7 +14,7 @@ affiliations:
  - name: Tata Institute of Fundamental Research Hyderabad, India
    index: 1
    ror: 01dagn361
-date: 13 March 2025
+date: 14 March 2025
 bibliography: paper.bib
 
 ---
@@ -34,10 +34,13 @@ the dataset for further studies.
 
 # Statement of need
 
-The QM9 dataset contains over 130,000 small organic molecules with quantum 
-chemical properties computed using density functional theory (DFT) [@ramakrishnan2014quantum]. While 
-extensively used, researchers often face challenges in efficiently accessing 
-and processing the dataset in its raw, unstructured form [@qm9dataset]. QM9PACK addresses this gap by providing user-friendly 
+The QM9 dataset contains structures and various properties computed using density functional theory (DFT) 
+for over 130,000 small organic molecules containing a maximum of
+nine main group atoms C|N|O|F [@ramakrishnan2014quantum]. 
+The initial geometries of QM9 molecules were obtained as the 
+SMILES representation[@weininger1988smiles] collected from the GDB17 database containing 166.4 billion molecular graphs[@ruddigkeit2012enumeration].
+While extensively used, researchers often face challenges in efficiently accessing 
+and processing the QM9 dataset in its raw, unstructured form [@qm9dataset]. QM9PACK addresses this gap by providing user-friendly 
 Python interfaces, efficient data handling routines, and example codes for large-scale 
 data exploration. The package also serves as a platform for discussing unit 
 conventions, ensuring consistency in molecular property reporting. 
@@ -65,8 +68,8 @@ calculated using the density functional theory method B3LYP and the 6-31G(2df, p
 Among these, 3,054 molecules faced convergence issues during structure optimization and were excluded, 
 resulting in a final dataset of 130,831 molecules. The 3,054 ‘uncharacterized’ molecules have been analyzed 
 separately, highlighting the critical role of quantum chemistry approximations in establishing the correspondence 
-between a molecular graph and its three-dimensional structure[@senthil2021troubleshooting]. For each of the 130,831 molecules, the dataset 
-contains the SMILES representation[@weininger1988smiles] collected from the GDB17 database containing 166.4 billion molecular graphs[@ruddigkeit2012enumeration].
+between a molecular graph and its three-dimensional structure[@senthil2021troubleshooting]. QM9PACK provides
+data for the remaining 130,831 ‘stable’ molecules.
 
 QM9PACK is implemented in Python and leverages popular libraries such as NumPy, Pandas, and Scikit-learn. 
 The package provides the QM9 dataset in an accessible CSV format, facilitating rapid data mining and statistical analysis. 
