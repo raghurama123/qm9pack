@@ -25,3 +25,8 @@ jobs:
           path: paper.pdf
       - name: Debug file paths
         run: ls -R
+      - name: Find and Upload Paper PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: paper
+          path: "./paper.pdf"  # Ensures the correct path
