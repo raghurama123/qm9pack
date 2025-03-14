@@ -104,6 +104,6 @@ experienced researchers and students.
 
 # Acknowledgements
 
-We acknowledge the support of the Department of Atomic Energy, Government of India, under Project Identification No. RTI 4007.
+We acknowledge the contributions of the quantum chemistry and machine learning communities for their valuable feedback. Special thanks to collaborators and testers who provided insights during the development of QM9PACK. We acknowledge the support of the Department of Atomic Energy, Government of India, under Project Identification No. RTI 4007.
 
 # References
