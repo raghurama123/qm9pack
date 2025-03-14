@@ -68,8 +68,7 @@ calculated using the density functional theory method B3LYP and the 6-31G(2df, p
 Among these, 3,054 molecules faced convergence issues during structure optimization and were excluded, 
 resulting in a final dataset of 130,831 molecules. The 3,054 ‘uncharacterized’ molecules have been analyzed 
 separately, highlighting the critical role of quantum chemistry approximations in establishing the correspondence 
-between a molecular graph and its three-dimensional structure[@senthil2021troubleshooting]. QM9PACK provides
-data for the remaining 130,831 ‘stable’ molecules.
+between a molecular graph and its three-dimensional structure[@senthil2021troubleshooting]. 
 
 QM9PACK is implemented in Python and leverages popular libraries such as NumPy, Pandas, and Scikit-learn. 
 The package provides the QM9 dataset in an accessible CSV format, facilitating rapid data mining and statistical analysis. 
@@ -107,6 +106,6 @@ experienced researchers and students.
 
 # Acknowledgements
 
-We acknowledge the contributions of the quantum chemistry and machine learning communities for their valuable feedback. Special thanks to collaborators and testers who provided insights during the development of QM9PACK. We acknowledge the support of the Department of Atomic Energy, Government of India, under Project Identification No. RTI 4007.
+We acknowledge the contributions of the quantum chemistry and machine learning communities for their valuable feedback. Special thanks to collaborators and testers who provided insights during the development of QM9PACK, often by requesting data in new form or additional properties. We acknowledge the support of the Department of Atomic Energy, Government of India, under Project Identification No. RTI 4007.
 
 # References
