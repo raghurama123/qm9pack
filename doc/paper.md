@@ -8,7 +8,6 @@ tags:
 authors:
   - name: Raghunathan Ramakrishnan
     orcid: 0000-0002-7288-9238
-    equal-contrib: true
     affiliation: 1
 affiliations:
  - name: Tata Institute of Fundamental Research Hyderabad, India
