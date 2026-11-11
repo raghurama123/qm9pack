@@ -1,0 +1,156 @@
+<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>QM9 Inertia Navigator</title>
+
+
+<style>
+:root{font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;color:#172438;background:#f4f6f9}*{box-sizing:border-box}body{margin:0}header{height:67px;padding:11px 23px;display:flex;align-items:center;justify-content:space-between;background:#fff;border-bottom:1px solid #e0e6ec}header h1{font-size:19px;margin:0;font-weight:650;letter-spacing:-.4px}header p{margin:3px 0 0;color:#718094;font-size:12px}.headright{font-size:12px;color:#66768c}main{height:calc(100vh - 67px);min-height:630px;display:grid;grid-template-columns:240px minmax(360px,1fr) 308px;gap:12px;padding:12px}.pane{background:white;border:1px solid #e1e6ec;border-radius:10px;min-width:0;overflow:hidden}.side{padding:18px;overflow-y:auto}.side h2,.detail h2{font-size:12px;font-weight:750;letter-spacing:1.2px;color:#8694a6;margin:0 0 18px;text-transform:uppercase}.field{margin:0 0 18px}.field label{font-size:12px;color:#46556c;display:block;margin-bottom:7px;font-weight:600}select,input[type=text],input[type=number]{width:100%;border:1px solid #d6dfe8;border-radius:6px;padding:9px 10px;background:white;color:#27364b;outline:none}input[type=range]{width:100%;accent-color:#2467bf}button,.filelabel{border:1px solid #d8e0ea;border-radius:7px;padding:9px 12px;background:#fff;cursor:pointer;font-weight:600;font-size:12px;color:#34516d}button:hover,.filelabel:hover{background:#f0f5fb}.primary{background:#2468c4;border-color:#2468c4;color:white}.primary:hover{background:#1554ad}.filelabel{display:block;text-align:center}#file{display:none}.tiny{font-size:11px;color:#8a97a7;line-height:1.55}.count{font-size:13px;color:#40536c;padding:10px 0;border-top:1px solid #edf0f3;margin-top:16px}.canvaspane{display:flex;flex-direction:column}.charthead{display:flex;align-items:center;gap:10px;padding:13px 16px;border-bottom:1px solid #edf0f4}.charthead b{font-size:13px}.charthead span{font-size:11px;color:#8995a5}.charttools{margin-left:auto;display:flex;gap:6px}#plot{flex:1;min-height:0;position:relative;overflow:hidden}#spaceCanvas{display:block;width:100%;height:100%;cursor:grab;touch-action:none}#spaceCanvas:active{cursor:grabbing}#hint{position:absolute;left:18px;top:17px;background:#ffffffdf;color:#718096;font-size:11px;padding:7px 10px;border-radius:6px;pointer-events:none}#molCanvas{width:100%;height:100%;display:block;cursor:grab;touch-action:none}.footnote{padding:9px 15px;border-top:1px solid #edf0f4;font-size:11px;color:#76859b}.detail{padding:16px;overflow-y:auto}#viewer{height:255px;border:1px solid #edf0f4;border-radius:8px;position:relative;background:#f9fbfd;margin:9px 0 13px}.empty{height:100%;display:grid;place-items:center;text-align:center;padding:30px;color:#9ba8b6;font-size:13px;line-height:1.6}.moltitle{font-size:20px;font-weight:700;letter-spacing:-.5px}.smiles{font:12px ui-monospace,monospace;word-break:break-all;background:#f6f8fb;border:1px solid #eef1f5;padding:8px;border-radius:6px;margin:9px 0}.kv{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid #eef1f5;font-size:12px}.kv span{color:#76859a}.kv b{font-weight:650;font-variant-numeric:tabular-nums;text-align:right}.flexrow{display:flex;gap:7px}.flexrow button{flex:1}.pill{display:inline-block;color:#2269ad;background:#eaf3ff;border-radius:20px;padding:4px 8px;font-size:11px}.warning{background:#fff6e2;padding:10px;color:#77561b;border-radius:7px;font-size:11px;line-height:1.5;margin-top:12px}#status{font-size:11px;color:#789}.rules{font-size:11px;color:#77879a;line-height:1.6}hr{border:0;border-top:1px solid #ebeff3;margin:16px 0}@media(max-width:1050px){main{grid-template-columns:205px minmax(340px,1fr)}.detail{grid-column:1/-1}.detail #viewer{height:300px}}@media(max-width:660px){main{display:flex;flex-direction:column;height:auto}.side{overflow:visible}.canvaspane{height:560px}.detail{height:auto}}
+
+/* Three-position molecular shape selector */
+.shape-picker{border:1px solid #e4eaf1;background:#f8fafc;border-radius:10px;padding:12px;margin:0 0 18px}
+.shape-picker .shape-title{font-size:12px;font-weight:700;color:#46556c;margin-bottom:7px}
+.shape-dial{position:relative;width:158px;height:158px;margin:4px auto 6px;touch-action:none;user-select:none}
+.dial-ring{position:absolute;inset:17px;border:7px solid #e6edf5;border-radius:50%;box-shadow:inset 0 2px 4px #d1dae6,0 1px 2px #dce3ea}
+.dial-knob{position:absolute;inset:35px;border-radius:50%;background:radial-gradient(circle at 32% 24%,#fff,#dce4ed 72%,#c9d4df);border:1px solid #b8c7d7;box-shadow:0 4px 10px #9eafc458;cursor:grab;transition:transform .16s ease}
+.dial-knob:active{cursor:grabbing}.dial-knob::after{content:'';position:absolute;width:7px;height:21px;left:calc(50% - 3.5px);top:8px;background:#2568b9;border-radius:5px;box-shadow:0 0 0 2px #ffffff80}
+.dial-stop{position:absolute;border:0;padding:4px 5px;background:#fff;color:#53677d;border-radius:6px;font-size:10px;line-height:1.15;min-width:45px;z-index:2}
+.dial-stop[aria-pressed="true"]{color:#1761af;background:#e1eeff;outline:1px solid #9cbee8}
+.dial-stop[data-shape="rod"]{top:4px;left:-4px}.dial-stop[data-shape="disc"]{top:4px;right:-7px}.dial-stop[data-shape="sphere"]{bottom:2px;left:calc(50% - 27px)}
+.dial-pointer{position:absolute;left:50%;top:50%;width:1px;height:1px;pointer-events:none}
+.shape-picker .tolerance-value{float:right;color:#1d68b0}
+.shape-picker .shape-readout{text-align:center;font-size:12px;color:#475569;font-weight:700;margin:4px 0 7px}
+.shape-picker .shape-count{text-align:center;font-size:11px;color:#738398;margin-top:5px}
+.shape-picker .all-shapes{display:block;width:100%;padding:7px;margin-top:4px}
+</style></head><body>
+<header><div><h1>QM9 <span style="color:#2c6ab7">/</span> Inertia Navigator</h1><p>Interactive molecular shape space · QM9PACK</p></div><div class="headright" id="datasetTag">No dataset loaded</div></header>
+<main>
+<section class="pane side"><h2>Explore</h2>
+<div class="field"><label>Dataset</label><div class="tiny" id="autoloadStatus" role="status">Loading <code>qm9_atlas.json</code> from this directory…</div><p class="tiny">If automatic loading is unavailable, select the file manually:</p><label class="filelabel" for="file">Open JSON manually</label><input type="file" id="file" accept=".json,application/json"></div>
+
+<div class="shape-picker">
+ <div class="shape-title">Molecular shape selector</div>
+ <div class="tiny">Turn the dial or click a shape to explore that region of inertia space.</div>
+ <div class="shape-dial" id="shapeDial" role="group" aria-label="Shape dial">
+  <div class="dial-ring"></div>
+  <button type="button" class="dial-stop" data-shape="rod" aria-pressed="false" title="Rod-like: I₁ ≈ 0; I₂ ≈ I₃">Rod<br>1D-like</button>
+  <button type="button" class="dial-stop" data-shape="disc" aria-pressed="false" title="Disc-like: I₁ ≈ I₂ ≈ I₃/2">Disc<br>2D-like</button>
+  <button type="button" class="dial-stop" data-shape="sphere" aria-pressed="false" title="Spherical: I₁ ≈ I₂ ≈ I₃">Sphere<br>3D-like</button>
+  <div class="dial-knob" id="shapeKnob" role="slider" tabindex="0" aria-label="Shape selection" aria-valuemin="0" aria-valuemax="2" aria-valuenow="0" aria-valuetext="All shapes (no filter)"></div>
+ </div>
+ <div class="shape-readout" id="shapeReadout">All shapes</div>
+ <label for="shapeTolerance" style="font-size:11px">Neighborhood radius <span class="tolerance-value" id="shapeToleranceValue">0.25</span></label>
+ <input type="range" id="shapeTolerance" min="0.05" max="0.80" value="0.25" step="0.01">
+ <div class="tiny">Euclidean radius in the NPR1–NPR2 shape triangle. These are approximate shape families, not literal molecular dimensionalities.</div>
+ <button class="all-shapes" id="allShapes" type="button">Show all shapes</button>
+ <div class="shape-count" id="shapeCount">No shape filter</div>
+</div>
+<div class="field"><label for="mode">Coordinate space</label><select id="mode"><option value="absolute">I₁, I₂, I₃ (absolute)</option><option value="normalized">I₁/I₃, I₂/I₃, I₃ (shape + size)</option><option value="shape">I₁/I₃, I₂/I₃, dipole (shape + property)</option></select></div>
+<div class="field"><label for="color">Color by</label><select id="color"><option value="gap">HOMO–LUMO gap (Ha)</option><option value="dipole">Dipole moment (D)</option><option value="alpha">Polarizability (Bohr³)</option><option value="I3">Largest inertia (amu Å²)</option><option value="natoms">Atom count</option><option value="none">Uniform</option></select></div>
+<div class="field"><label for="search">Find QM9 ID or SMILES</label><input id="search" type="text" placeholder="e.g. 12345 or C#N"/></div>
+<div class="field"><label for="minAtoms">Minimum atoms: <span id="minval">0</span></label><input type="range" id="minAtoms" min="0" max="29" value="0"></div>
+<div class="field"><label for="maxAtoms">Maximum atoms: <span id="maxval">29</span></label><input type="range" id="maxAtoms" min="1" max="29" value="29"></div>
+<div class="field"><label for="limit">Display budget</label><select id="limit"><option value="10000">10,000 points</option><option value="30000" selected>30,000 points</option><option value="60000">60,000 points</option><option value="150000">All points (GPU dependent)</option></select><p class="tiny">Other molecules remain searchable. Sampling is deterministic, rather than the first records.</p></div>
+<div class="flexrow"><button id="apply" class="primary">Update map</button><button id="reset">Reset view</button></div>
+<div class="count" id="counts">Loading dataset…</div><hr><div class="rules"><b>Controls</b><p>Drag to rotate · scroll to zoom · click a point to inspect its molecule. Double-click restores the camera.</p><p>Moment-of-inertia units: amu Å². For shape, I₁ ≤ I₂ ≤ I₃.</p></div>
+</section>
+<section class="pane canvaspane"><div class="charthead"><div><b>3D Molecular Space</b><div><span id="subtitle">Browse absolute moments of inertia</span></div></div><div class="charttools"><button id="export">Export selection CSV</button></div></div><div id="plot"><canvas id="spaceCanvas"></canvas><div id="hint">Loading qm9_atlas.json…</div></div><div class="footnote" id="status">Offline 3D canvas · drag to rotate · scroll to zoom · click to inspect</div></section>
+<section class="pane detail"><h2>Molecule inspector</h2><div id="info"><div class="empty" style="height:110px">Select a point from the 3D plot or search for a molecule.</div></div><div id="viewer"><canvas id="molCanvas"></canvas></div><div class="flexrow"><button id="xyzBtn" disabled>Download XYZ</button><button id="copyBtn" disabled>Copy SMILES</button></div><div class="warning">Selection uses QM9PACK Cartesian coordinates. Bonds are estimated from interatomic distances for visualization.</div></section>
+</main>
+<script>
+'use strict';
+const $=id=>document.getElementById(id);
+const COL={id:0,smiles:1,I1:2,I2:3,I3:4,gap:5,dipole:6,alpha:7,natoms:8,elements:9,xyz:10};
+let rows=[],visible=[],selected=null,points=[],rotationX=-0.38,rotationY=0.55,zoom=1,rotationMX=-0.32,rotationMY=0.40,zoomMol=1;
+const space=$('spaceCanvas'),ctx=space.getContext('2d',{alpha:false}),mol=$('molCanvas'),mc=mol.getContext('2d',{alpha:false});
+let showingError='';
+const SHAPES={rod:{x:0,y:1,label:'Rod · 1D-like',deg:-45},disc:{x:0.5,y:0.5,label:'Disc · 2D-like',deg:45},sphere:{x:1,y:1,label:'Sphere · 3D-like',deg:180}};
+let activeShape=null;
+function shapeCoords(r){let c=r[4];return c>1e-12?[r[2]/c,r[3]/c]:[0,0]}
+function shapeMatches(r){if(!activeShape)return true;const [x,y]=shapeCoords(r),s=SHAPES[activeShape];return Math.hypot(x-s.x,y-s.y)<=Number($('shapeTolerance').value)}
+function setShape(s){activeShape=s;const label=s?SHAPES[s].label:'All shapes';$('shapeReadout').textContent=label;$('shapeKnob').style.transform='rotate('+(s?SHAPES[s].deg:0)+'deg)';$('shapeKnob').setAttribute('aria-valuenow',s?['rod','disc','sphere'].indexOf(s):0);$('shapeKnob').setAttribute('aria-valuetext',label);for(const b of document.querySelectorAll('.dial-stop'))b.setAttribute('aria-pressed',String(b.dataset.shape===s));$('shapeCount').textContent=s?'Showing molecules near '+s+' shape':'No shape filter';render()}
+for(const b of document.querySelectorAll('.dial-stop'))b.addEventListener('click',()=>setShape(b.dataset.shape));
+$('allShapes').addEventListener('click',()=>setShape(null));
+$('shapeTolerance').addEventListener('input',()=>{$('shapeToleranceValue').textContent=Number($('shapeTolerance').value).toFixed(2);render()});
+// Mouse wheel and dragging both turn the three-position dial.
+const knob=$('shapeKnob'),shapeOrder=['rod','disc','sphere'];
+knob.addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Home','End'].includes(e.key))return;e.preventDefault();let i=shapeOrder.indexOf(activeShape);if(e.key==='Home')i=0;else if(e.key==='End')i=2;else i=Math.max(0,Math.min(2,(i<0?0:i)+(e.key==='ArrowLeft'||e.key==='ArrowDown'?-1:1)));setShape(shapeOrder[i])});
+knob.addEventListener('wheel',e=>{e.preventDefault();let i=shapeOrder.indexOf(activeShape);setShape(shapeOrder[Math.max(0,Math.min(2,(i<0?0:i)+(e.deltaY>0?1:-1)))])},{passive:false});
+knob.addEventListener('pointerdown',e=>{e.preventDefault();knob.setPointerCapture(e.pointerId)});
+knob.addEventListener('pointerup',e=>{const rect=$('shapeDial').getBoundingClientRect();let angle=Math.atan2(e.clientY-(rect.top+rect.height/2),e.clientX-(rect.left+rect.width/2))*180/Math.PI;const options=[['rod',-135],['disc',-45],['sphere',90]];options.sort((a,b)=>Math.abs(Math.atan2(Math.sin((angle-a[1])*Math.PI/180),Math.cos((angle-a[1])*Math.PI/180)))-Math.abs(Math.atan2(Math.sin((angle-b[1])*Math.PI/180),Math.cos((angle-b[1])*Math.PI/180))));setShape(options[0][0])});
+
+window.addEventListener('error',e=>{$('status').textContent='Error: '+e.message;console.error(e.error||e.message)});
+window.addEventListener('unhandledrejection',e=>{$('status').textContent='Error: '+String(e.reason);console.error(e.reason)});
+const escapeHTML=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const num=(v,n=3)=>v==null?'—':Number(v).toFixed(n);
+function resize(canvas){let bounds=canvas.getBoundingClientRect(),w=Math.max(1,Math.round(bounds.width)),h=Math.max(1,Math.round(bounds.height));if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h}return [w,h]}
+function xyz(r){const [a,b,c]=r.slice(2,5);if($('mode').value==='normalized')return [c?a/c:0,c?b/c:0,c];if($('mode').value==='shape')return [c?a/c:0,c?b/c:0,r[6]||0];return [a,b,c]}
+function chooseSample(a,n){if(a.length<=n)return a;let chosen=[];for(let i=0;i<n;i++)chosen.push(a[Math.floor(i*a.length/n)]);return chosen}
+function rotated(x,y,z,rx,ry){let cy=Math.cos(ry),sy=Math.sin(ry),cx=Math.cos(rx),sx=Math.sin(rx);let x1=cy*x+sy*z,z1=-sy*x+cy*z;return [x1,cx*y-sx*z1,sx*y+cx*z1]}
+function render(){if(!rows.length){drawSpace();return}let q=$('search').value.trim().toLowerCase(),low=+$('minAtoms').value,high=+$('maxAtoms').value;let matched=rows.filter(r=>r[8]>=low&&r[8]<=high&&(!q||String(r[0])===q||String(r[1]).toLowerCase().includes(q))&&shapeMatches(r));visible=chooseSample(matched,+$('limit').value);$('shapeCount').textContent=activeShape?matched.length.toLocaleString()+' near '+activeShape+' (radius '+Number($('shapeTolerance').value).toFixed(2)+')':'No shape filter';$('counts').innerHTML='<b>'+visible.length.toLocaleString()+'</b> shown<br><span class="tiny">'+matched.length.toLocaleString()+' matching · '+rows.length.toLocaleString()+' total</span>';
+let dims=[[],[],[]];for(let r of visible){let v=xyz(r);for(let k=0;k<3;k++)dims[k].push(v[k])}
+let range=dims.map(a=>{if(!a.length)return [0,1];let ss=a.slice().sort((a,b)=>a-b);let lo=ss[Math.floor((ss.length-1)*.01)],hi=ss[Math.floor((ss.length-1)*.99)];return [lo,hi>lo?hi:lo+1]});
+let color=$('color').value;let cs=visible.map(r=>color==='none'?null:(color==='I3'?r[4]:r[COL[color]]));let valid=cs.filter(v=>Number.isFinite(v)).sort((a,b)=>a-b);let cmin=valid.length?valid[Math.floor(valid.length*.02)]:0,cmax=valid.length?valid[Math.floor(valid.length*.98)]:1;
+points=visible.map((r,i)=>{let v=xyz(r);return {r,v:v.map((t,k)=>(t-range[k][0])/(range[k][1]-range[k][0])-.5),col:cs[i],id:i}});
+window.currentColor=[cmin,cmax];$('hint').style.display=visible.length?'none':'block';$('subtitle').textContent=($('mode').value==='absolute'?['I₁','I₂','I₃']:$('mode').value==='normalized'?['I₁/I₃','I₂/I₃','I₃']:['I₁/I₃','I₂/I₃','Dipole']).join(' · ');$('status').textContent=visible.length.toLocaleString()+' rendered · offline canvas · drag to rotate · click to inspect';drawSpace();if(q&&matched.length===1)inspect(matched[0])}
+function gradient(t){t=Math.min(1,Math.max(0,t));const stops=[[68,1,84],[59,82,139],[33,145,140],[94,201,98],[253,231,37]];let j=Math.min(3,Math.floor(t*4)),f=t*4-j;let a=stops[j],b=stops[j+1];return 'rgb('+a.map((v,k)=>Math.round(v+(b[k]-v)*f)).join(',')+')'}
+let drawn=[];
+function drawSpace(){const [w,h]=resize(space);ctx.fillStyle='#ffffff';ctx.fillRect(0,0,w,h);let midx=w/2,midy=h/2,scale=Math.min(w,h)*.75*zoom;const project=p=>{let v=rotated(p[0],p[1],p[2],rotationX,rotationY);return [midx+v[0]*scale,midy-v[1]*scale,v[2]]};
+const corners=[];for(let a of [-.5,.5])for(let b of [-.5,.5])for(let c of [-.5,.5])corners.push([a,b,c]);ctx.strokeStyle='#e3e9f1';ctx.lineWidth=1;for(let i=0;i<8;i++)for(let j=i+1;j<8;j++){let a=corners[i],b=corners[j];if(a.reduce((t,v,k)=>t+(v!==b[k]?1:0),0)===1){let p=project(a),q=project(b);ctx.beginPath();ctx.moveTo(p[0],p[1]);ctx.lineTo(q[0],q[1]);ctx.stroke()}};
+const labels=$('mode').value==='absolute'?['I₁','I₂','I₃']:$('mode').value==='normalized'?['I₁/I₃','I₂/I₃','I₃']:['I₁/I₃','I₂/I₃','µ'];ctx.font='12px system-ui';ctx.fillStyle='#64748b';for(let i=0;i<3;i++){let p=[-.5,-.5,-.5],q=[...p];q[i]=.6;let a=project(p),b=project(q);ctx.strokeStyle=['#df5970','#39a68f','#6685d4'][i];ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(a[0],a[1]);ctx.lineTo(b[0],b[1]);ctx.stroke();ctx.fillText(labels[i],b[0]+4,b[1]-5)}
+if(!points.length){ctx.textAlign='center';ctx.font='15px system-ui';ctx.fillStyle='#718096';ctx.fillText('Choose qm9_atlas.json in the left panel',w/2,Math.max(40,h/2));ctx.textAlign='left';return}
+ drawn=points.map(p=>{let o=project(p.v);return {p,x:o[0],y:o[1],z:o[2]}}).filter(p=>p.x>-5&&p.x<w+5&&p.y>-5&&p.y<h+5).sort((a,b)=>a.z-b.z);let color=$('color').value,[lo,hi]=window.currentColor||[0,1];for(let d of drawn){let c=color==='none'?'#2873c1':(d.p.col==null?'#b8c4d1':gradient((d.p.col-lo)/(hi-lo||1)));ctx.fillStyle=c;ctx.globalAlpha=.70;ctx.beginPath();ctx.arc(d.x,d.y,1.45,0,Math.PI*2);ctx.fill()};ctx.globalAlpha=1;
+if(selected){let found=drawn.find(d=>d.p.r===selected);if(found){ctx.strokeStyle='#f97316';ctx.lineWidth=2.5;ctx.beginPath();ctx.arc(found.x,found.y,8,0,Math.PI*2);ctx.stroke()}}
+}
+function parseSymbols(s){return String(s).match(/Cl|Br|[A-Z][a-z]?/g)||[]}
+function xyzFile(r){let a=parseSymbols(r[9]),v=r[10],s=a.length+'\nQM9 #'+r[0]+' '+r[1]+'\n';for(let i=0;i<a.length;i++)s+=a[i]+' '+v.slice(i*3,i*3+3).join(' ')+'\n';return s}
+function inspect(r){selected=r;$('info').innerHTML='<div class="moltitle">QM9 #'+escapeHTML(r[0])+'</div><div class="smiles">'+escapeHTML(r[1])+'</div><span class="pill">'+r[8]+' atoms</span>'+[['I₁',num(r[2])+' amu Å²'],['I₂',num(r[3])+' amu Å²'],['I₃',num(r[4])+' amu Å²'],['Normalized PMI',num(r[4]?r[2]/r[4]:0)+', '+num(r[4]?r[3]/r[4]:0)],['HOMO–LUMO gap',num(r[5],4)+' Ha'],['Dipole moment',num(r[6])+' D'],['Polarizability',num(r[7])+' Bohr³']].map(([k,v])=>'<div class="kv"><span>'+k+'</span><b>'+v+'</b></div>').join('');$('xyzBtn').disabled=false;$('copyBtn').disabled=false;drawMol();drawSpace()}
+const atomColors={H:'#e9ecf0',C:'#4f5966',N:'#3465c5',O:'#d74c44',F:'#2fad72'};const covR={H:.31,C:.76,N:.71,O:.66,F:.57};const balls={H:5,C:9,N:9,O:9,F:9};
+function drawMol(){let [w,h]=resize(mol);mc.fillStyle='#f9fbfd';mc.fillRect(0,0,w,h);if(!selected){mc.fillStyle='#91a0b0';mc.textAlign='center';mc.font='13px system-ui';mc.fillText('Select a molecule to view its 3D geometry',w/2,h/2);mc.textAlign='left';return}let labels=parseSymbols(selected[9]),xyz=selected[10],atoms=labels.map((s,i)=>({s,x:xyz[3*i],y:xyz[3*i+1],z:xyz[3*i+2]})),mean=[0,1,2].map(k=>atoms.reduce((v,p)=>v+p[['x','y','z'][k]],0)/atoms.length);let pts=atoms.map(a=>[a.x-mean[0],a.y-mean[1],a.z-mean[2]]);let max=Math.max(1,...pts.flatMap(p=>p.map(Math.abs)));let sc=Math.min(w,h)*.35/max*zoomMol;let pp=pts.map(p=>{let v=rotated(...p,rotationMX,rotationMY);return [w/2+v[0]*sc,h/2-v[1]*sc,v[2]]});let bonds=[];for(let i=0;i<atoms.length;i++)for(let j=i+1;j<atoms.length;j++){let dist=Math.hypot(...[0,1,2].map(k=>pts[i][k]-pts[j][k]));let lim=(covR[atoms[i].s]||.7)+(covR[atoms[j].s]||.7)+.42;if(dist>.25&&dist<lim)bonds.push([i,j,(pp[i][2]+pp[j][2])/2])};bonds.sort((a,b)=>a[2]-b[2]);mc.lineWidth=5;mc.lineCap='round';for(let [i,j] of bonds){mc.strokeStyle='#aab4bf';mc.beginPath();mc.moveTo(pp[i][0],pp[i][1]);mc.lineTo(pp[j][0],pp[j][1]);mc.stroke()};let order=atoms.map((a,i)=>i).sort((a,b)=>pp[a][2]-pp[b][2]);for(let i of order){let a=atoms[i],p=pp[i],rad=(balls[a.s]||8)*Math.max(.65,Math.min(1.45,zoomMol));mc.fillStyle=atomColors[a.s]||'#777';mc.strokeStyle='#ffffff';mc.lineWidth=1.2;mc.beginPath();mc.arc(p[0],p[1],rad,0,Math.PI*2);mc.fill();mc.stroke()}}
+function dragRotate(canvas,update,isMol){let dragging=false,moved=false,x=0,y=0;canvas.addEventListener('pointerdown',e=>{dragging=true;moved=false;x=e.clientX;y=e.clientY;canvas.setPointerCapture(e.pointerId)});canvas.addEventListener('pointermove',e=>{if(!dragging)return;let dx=e.clientX-x,dy=e.clientY-y;x=e.clientX;y=e.clientY;if(Math.abs(dx)+Math.abs(dy)>0.3)moved=true;if(isMol){rotationMY+=dx*.009;rotationMX+=dy*.009}else{rotationY+=dx*.009;rotationX+=dy*.009}update()});canvas.addEventListener('pointerup',e=>{dragging=false;if(!moved&&!isMol&&drawn.length){const b=canvas.getBoundingClientRect(),mx=e.clientX-b.left,my=e.clientY-b.top;let nearest=null,dmin=100;for(let p of drawn){let d=(p.x-mx)**2+(p.y-my)**2;if(d<dmin){dmin=d;nearest=p}}if(nearest)inspect(nearest.p.r)}});canvas.addEventListener('wheel',e=>{e.preventDefault();if(isMol)zoomMol=Math.max(.25,Math.min(5,zoomMol*Math.exp(-e.deltaY*.001)));else zoom=Math.max(.25,Math.min(8,zoom*Math.exp(-e.deltaY*.001)));update()},{passive:false});canvas.addEventListener('dblclick',()=>{if(isMol){rotationMX=-.32;rotationMY=.4;zoomMol=1}else{rotationX=-.38;rotationY=.55;zoom=1}update()})}
+dragRotate(space,drawSpace,false);dragRotate(mol,drawMol,true);
+function useAtlas(data, source){
+ if(data.schema!=='qm9-inertia-v1'||!Array.isArray(data.rows))throw Error('Unrecognized atlas format');
+ rows=data.rows;
+ $('datasetTag').textContent=rows.length.toLocaleString()+' QM9 molecules';
+ $('autoloadStatus').textContent='Loaded '+rows.length.toLocaleString()+' molecules ('+source+').';
+ $('hint').textContent='Drag to rotate · scroll to zoom · click to inspect';
+ $('status').textContent='Ready · '+rows.length.toLocaleString()+' molecules · drag to rotate · scroll to zoom';
+ render();
+}
+async function autoLoadAtlas(){
+ const url=new URL('qm9_atlas.json',document.baseURI);
+ $('status').textContent='Loading '+url.href+'…';
+ $('autoloadStatus').textContent='Fetching '+url.href;
+ try {
+  if(location.protocol==='file:') throw Error('Opened via file://. Browsers block automatic JSON loading. Run python3.11 -m http.server 8000 from the repository root and open http://localhost:8000/html/');
+  const response=await fetch(url.href,{cache:'no-store'});
+  if(!response.ok) throw Error('HTTP '+response.status+' '+response.statusText+' at '+url.href+(response.status===404?' — check that qm9_atlas.json exists in the same html/ directory':'') );
+  const type=response.headers.get('content-type')||'';
+  const body=await response.text();
+  $('autoloadStatus').textContent='Downloaded '+(body.length/1048576).toFixed(1)+' MiB; parsing JSON…';
+  let data;
+  try {data=JSON.parse(body)}
+  catch(e){throw Error('Invalid JSON at '+url.href+': '+e.message+' (content-type: '+type+'). If the file starts with HTML, the server returned a webpage instead of the dataset.')}
+  useAtlas(data,'automatic');
+ }catch(err){
+  const message=err?.message||String(err);
+  $('autoloadStatus').textContent='Automatic loading failed: '+message;
+  $('autoloadStatus').style.color='#a33328';
+  $('status').textContent='Load error: '+message;
+  $('hint').textContent='Dataset not loaded · see left panel';
+  $('counts').textContent='No dataset loaded.';
+  console.error('QM9 Atlas automatic loading failed',err);
+ }
+}
+$('file').addEventListener('change',async e=>{
+ const file=e.target.files[0];if(!file)return;
+ $('status').textContent='Reading '+file.name+' ('+(file.size/1048576).toFixed(1)+' MB)…';
+ try{useAtlas(JSON.parse(await file.text()),'manual selection')}
+ catch(err){$('status').textContent='Load error: '+err.message;$('autoloadStatus').textContent='Manual load failed: '+err.message}
+});
+$('apply').onclick=render;$('reset').onclick=()=>{$('search').value='';activeShape=null;$('shapeReadout').textContent='All shapes';$('shapeKnob').style.transform='rotate(0deg)';for(const b of document.querySelectorAll('.dial-stop'))b.setAttribute('aria-pressed','false');$('minAtoms').value=0;$('maxAtoms').value=29;$('minval').textContent=0;$('maxval').textContent=29;rotationX=-.38;rotationY=.55;zoom=1;render()};$('search').onkeydown=e=>{if(e.key==='Enter')render()};for(let id of ['mode','color','limit'])$(id).onchange=render;for(let id of ['minAtoms','maxAtoms'])$(id).oninput=()=>{$(id==='minAtoms'?'minval':'maxval').textContent=$(id).value};
+function download(name,data,type){let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data],{type}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2500)}
+$('xyzBtn').onclick=()=>{if(selected)download('qm9_'+selected[0]+'.xyz',xyzFile(selected),'chemical/x-xyz')};$('copyBtn').onclick=()=>{if(selected)navigator.clipboard?.writeText(selected[1])};$('export').onclick=()=>{if(!visible.length)return;let h=['Index','SMILES','I1','I2','I3','gap_Ha','dipole_D','alpha_bohr3','natoms'],body=visible.map(r=>r.slice(0,9).map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(','));download('qm9_selected.csv',[h.join(','),...body].join('\n'),'text/csv')};
+new ResizeObserver(()=>{drawSpace();drawMol()}).observe($('plot'));
+new ResizeObserver(()=>drawMol()).observe($('viewer'));
+drawSpace();drawMol();
+autoLoadAtlas();
+</script></body></html>
