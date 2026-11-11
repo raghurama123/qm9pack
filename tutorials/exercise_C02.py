@@ -26,6 +26,8 @@ stoi = mol['Stoichiometry']
 str_list = stoi.strip('[]').split(',')
 stoi = [float(num) for num in str_list]
 
+print(stoi)
+
 # Calculating the atomization energy
 U0_atomization = U0_mol - np.dot(stoi, U0_atoms)
 
